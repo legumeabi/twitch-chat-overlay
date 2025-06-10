@@ -89,7 +89,9 @@ async function createMessageHTMLElement(tags, message) {
   messageElement.setAttribute("data-user-id", tags["user-id"]);
   messageElement.innerHTML = `${userNameHTML} <span class="message-text">${messageHTML}</span>`;
 
-  twemoji.parse(messageElement);
+  twemoji.parse(messageElement, {
+    base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/",
+  });
 
   return messageElement;
 }
