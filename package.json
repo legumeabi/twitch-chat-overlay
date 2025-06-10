@@ -24,9 +24,9 @@
   "author": "@legumeabi",
   "license": "GPL-3.0",
   "devDependencies": {
-    "chai": "^4.3.6",
+    "chai": "^5.2.0",
     "eslint": "^8.23.0",
-    "mocha": "^10.0.0",
+    "mocha": "^11.6.0",
     "vite": "^3.2.7"
   },
   "dependencies": {
