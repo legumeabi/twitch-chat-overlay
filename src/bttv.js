@@ -4,15 +4,13 @@ let bttvChannelLookupTable;
 let bttvChannelEmotesResponseFetched = false;
 let ffzChannelLookupTable;
 let ffzChannelEmotesResponseFetched = false;
+import config from "./config.js";
 
 async function getUserId() {
   if (userId) return userId;
 
-  const queryParameters = new URLSearchParams(window.location.search);
-  const channelName = queryParameters.get("channel");
-
   const userIdResponse = await fetch(
-    `https://decapi.me/twitch/id/${channelName}`
+    `https://decapi.me/twitch/id/${config.CHANNEL_NAME}`
   );
 
   userId = await userIdResponse.text();

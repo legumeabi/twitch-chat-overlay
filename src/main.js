@@ -2,6 +2,7 @@ import { colord, extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
 import tmi from "tmi.js";
 import twemoji from "twemoji";
+import config from "./config.js";
 import processMessage from "./processMessage.js";
 import { fetchPronounsForUser } from "./pronouns.js";
 
@@ -158,9 +159,7 @@ function removeAllMessagesOfUser(
 }
 
 function setup() {
-  const queryParameters = new URLSearchParams(window.location.search);
-  const CHANNEL_NAME = queryParameters.get("channel");
-  const CHAT_STRIP_MODE = queryParameters.has("chatStrip");
+  const CHAT_STRIP_MODE = false;
 
   if (CHAT_STRIP_MODE) {
     document.querySelector(".chat-box").style.display = "none";
@@ -171,7 +170,7 @@ function setup() {
   }
 
   const client = tmi.Client({
-    channels: [CHANNEL_NAME],
+    channels: [config.CHANNEL_NAME],
   });
 
   client.connect();
