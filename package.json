@@ -11,7 +11,7 @@
     "dev": "NODE_ENV=development node server.js",
     "build": "vite build --config vite.generator.config.js",
     "start": "NODE_ENV=production node server.js",
-    "test": "mocha src/overlay/test/**/*"
+    "test": "mocha --require src/overlay/test/setup.js src/overlay/test/**/*.test.js"
   },
   "repository": {
     "type": "git",
