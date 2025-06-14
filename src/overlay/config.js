@@ -1,0 +1,18 @@
+/* global __CHANNEL_NAME__, __CHAT_STRIP_MODE__, __MAX_MESSAGES__, __SHOW_BADGES__, 
+   __SHOW_PRONOUNS__, __REMOVE_MESSAGES_AFTER_TIMER__, __MESSAGE_REMOVAL_TIMER__ */
+const config = {
+  // Channel configuration
+  CHANNEL_NAME: __CHANNEL_NAME__,
+  CHAT_STRIP_MODE: __CHAT_STRIP_MODE__,
+
+  // Chat display configuration
+  MAX_MESSAGES_COUNT: __MAX_MESSAGES__,
+  SHOW_BADGES: __SHOW_BADGES__,
+  SHOW_PRONOUNS: __SHOW_PRONOUNS__,
+
+  // Message cleanup configuration
+  REMOVE_MESSAGES_AFTER_TIMER: __REMOVE_MESSAGES_AFTER_TIMER__,
+  MESSAGE_REMOVAL_TIMER_THRESHOLD: __MESSAGE_REMOVAL_TIMER__, // in ms
+};
+
+export default config;

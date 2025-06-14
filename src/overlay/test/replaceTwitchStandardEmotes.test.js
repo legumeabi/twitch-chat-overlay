@@ -1,8 +1,5 @@
 import { expect } from "chai";
-import {
-  replaceTwitchStandardEmotes,
-  TWITCH_URL_PREFIX,
-} from "../src/emotes.js";
+import { replaceTwitchStandardEmotes, TWITCH_URL_PREFIX } from "../emotes.js";
 
 describe("replaceTwitchStandardEmotes()", function () {
   let message;
@@ -130,9 +127,7 @@ describe("replaceTwitchStandardEmotes()", function () {
 
     it("leaves the message as-is, except that it still escapes any existing HTML", function () {
       const newMessage = replaceTwitchStandardEmotes(message, emotes);
-      expect(newMessage).to.equal(
-        `Ok, LUL, &lt;p&gt;this&lt;/p&gt; is BabyRage? BOP`
-      );
+      expect(newMessage).to.equal(`Ok, LUL, &lt;p&gt;this&lt;/p&gt; is BabyRage? BOP`);
     });
   });
 });

@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import splitByRanges from "../src/splitByRanges.js";
+import splitByRanges from "../splitByRanges.js";
 
 describe("splitByRanges()", function () {
   let message;

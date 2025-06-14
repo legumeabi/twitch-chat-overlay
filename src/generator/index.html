@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitch Chat Overlay Generator</title>
+    <link rel="stylesheet" href="index.css" />
+    <script src="index.js" type="module" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Twitch Chat Overlay Generator</h1>
+      <form id="config-form">
+        <div class="form-group">
+          <label for="channelName">Twitch Channel Name:</label>
+          <input
+            type="text"
+            id="channelName"
+            name="channelName"
+            placeholder="Enter channel name (without @)"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="chatStripMode" name="chatStripMode" checked />
+            <label for="chatStripMode">Use Strip Mode</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="showBadges" name="showBadges" />
+            <label for="showBadges">Show Badges</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="showPronouns" name="showPronouns" checked />
+            <label for="showPronouns">Show Pronouns</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="maxMessages">Message Maximum:</label>
+          <div class="number-field">
+            <input type="number" id="maxMessages" name="maxMessages" value="20" min="1" max="100" step="1" required />
+            <span>messages</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="removeMessagesAfterTimer" name="removeMessagesAfterTimer" />
+            <label for="removeMessagesAfterTimer">Remove Messages After Timer</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="messageRemovalTimer">Message Removal Timer:</label>
+          <div class="number-field">
+            <input
+              type="number"
+              id="messageRemovalTimer"
+              name="messageRemovalTimer"
+              value="5"
+              min="1"
+              max="60"
+              step="1"
+              required
+            />
+            <span>seconds</span>
+          </div>
+        </div>
+        <button type="submit">Generate Overlay</button>
+      </form>
+    </div>
+  </body>
+</html>
