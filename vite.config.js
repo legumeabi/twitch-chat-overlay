@@ -9,5 +9,8 @@ const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 export default {
   plugins: [preserveConfigScript(), viteSingleFile()],
   publicDir: false,
-  root: join(projectRoot, "src/overlay"),
+  root: join(projectRoot, "src"),
+  build: {
+    outDir: join(projectRoot, "dist"),
+  },
 };
