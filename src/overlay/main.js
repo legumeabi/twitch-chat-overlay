@@ -2,7 +2,6 @@ import { colord, extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
 import tmi from "tmi.js";
 import twemoji from "twemoji";
-import config from "./config.js";
 import processMessage from "./processMessage.js";
 import { fetchPronounsForUser } from "./pronouns.js";
 
@@ -41,7 +40,7 @@ async function createMessageHTMLElement(tags, message) {
   const style = `background-color: ${userColor}; color: ${textShouldBeBlack ? "#000" : "#fff"};`;
 
   let badgesHTML = "";
-  if (config.SHOW_BADGES) {
+  if (window.SHOW_BADGES) {
     messageData.badgeKeys.forEach((badgeKey) => {
       const badgeImageUrl = BADGE_IMAGE_URLS[badgeKey];
       if (badgeImageUrl) {
@@ -54,7 +53,7 @@ async function createMessageHTMLElement(tags, message) {
     <span class="username" style="${style}">
       ${badgesHTML}
       ${displayName}
-      ${config.SHOW_PRONOUNS && !messageInItalics ? "<span class='pronouns'></span>" : ""}    
+      ${window.SHOW_PRONOUNS && !messageInItalics ? "<span class='pronouns'></span>" : ""}    
     </span>  
   `;
 
@@ -82,7 +81,7 @@ async function addMessage(channel, tags, message) {
   const chatBoxElement = document.querySelector(chatContainerSelectorName);
   chatBoxElement.append(messageElement);
 
-  if (config.SHOW_PRONOUNS) {
+  if (window.SHOW_PRONOUNS) {
     fetchPronounsForUser(tags.username).then((pronounsText) => {
       if (pronounsText) {
         addPronounsToUsername(tags["user-id"], pronounsText);
@@ -92,12 +91,12 @@ async function addMessage(channel, tags, message) {
 
   const allMessageElements = document.querySelectorAll(`${chatContainerSelectorName} p`);
 
-  if (allMessageElements.length > config.MAX_MESSAGES_COUNT) {
+  if (allMessageElements.length > window.MAX_MESSAGES) {
     // remove the first message from the beginning of the list
     allMessageElements[0]?.remove();
   }
 
-  if (config.REMOVE_MESSAGES_AFTER_TIMER) {
+  if (window.REMOVE_MESSAGES_AFTER_TIMER) {
     startMessageRemovalTimer(tags.id);
   }
 }
@@ -109,9 +108,8 @@ function addPronounsToUsername(userId, pronounsText) {
 
 function startMessageRemovalTimer(messageId) {
   setTimeout(() => {
-    const toBeDeletedMessageElement = document.getElementById(messageId);
-    toBeDeletedMessageElement?.remove();
-  }, config.MESSAGE_REMOVAL_TIMER_THRESHOLD);
+    document.getElementById(messageId)?.remove();
+  }, window.MESSAGE_REMOVAL_TIMER);
 }
 
 function removeMessage(channel, username, deletedMessage, userstate) {
@@ -127,7 +125,7 @@ function removeAllMessagesOfUser(channel, username, reason, duration, userstate)
 }
 
 function setup() {
-  if (config.CHAT_STRIP_MODE) {
+  if (window.CHAT_STRIP_MODE) {
     document.querySelector(".chat-box").style.display = "none";
     chatContainerSelectorName = ".chat-strip";
   } else {
@@ -136,7 +134,7 @@ function setup() {
   }
 
   const client = tmi.Client({
-    channels: [config.CHANNEL_NAME],
+    channels: [window.CHANNEL_NAME],
   });
 
   client.connect();
