@@ -5,13 +5,13 @@
   "main": "index.html",
   "type": "module",
   "engines": {
-    "node": "~22.16.0"
+    "node": "^20.19.4"
   },
   "scripts": {
-    "dev": "NODE_ENV=development node server.js",
-    "build": "vite build --config vite.generator.config.js",
-    "start": "NODE_ENV=production node server.js",
-    "test": "mocha --require src/overlay/test/setup.js src/overlay/test/**/*.test.js"
+    "dev": "vite",
+    "build": "vite build --emptyOutDir",
+    "start": "vite preview",
+    "test": "mocha --require src/test/setup.js src/test/**/*.test.js"
   },
   "repository": {
     "type": "git",

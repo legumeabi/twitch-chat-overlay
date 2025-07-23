@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitch Chat Overlay</title>
+    <link rel="stylesheet" href="styles/legumes-theme.css" />
+    <script id="overlay-config">
+      // Channel configuration
+      window.CHANNEL_NAME = "legumeabi";
+
+      // Chat display configuration
+      window.CHAT_STRIP_MODE = false;
+      window.MAX_MESSAGES = 20;
+      window.SHOW_BADGES = true;
+      window.SHOW_PRONOUNS = true;
+
+      // Message cleanup configuration
+      window.REMOVE_MESSAGES_AFTER_TIMER = false;
+      window.MESSAGE_REMOVAL_TIMER = 60000; // in ms
+    </script>
+    <style id="overlay-theme">
+      :root {
+        /* Base sizes */
+        --size-xxs: calc(100vh * 2 / 1080); /* = 2px @ 1080p */
+        --size-xs: calc(100vh * 4 / 1080); /* = 4px @ 1080p */
+        --size-s: calc(100vh * 8 / 1080); /* = 8px @ 1080p */
+        --size-m: calc(100vh * 16 / 1080); /* = 16px @ 1080p */
+        --size-l: calc(100vh * 24 / 1080); /* = 24px @1080p */
+        --size-xl: calc(100vh * 32 / 1080); /* = 32 px @ 1080p */
+        --size-xxl: calc(100vh * (40 / 1080)); /* = 40 px @ 1080p*/
+        --size-3xl: calc(100vh * 60 / 1080); /* = 60px @ 1080p */
+        --size-4xl: calc(100vh * 90 / 1080); /* = 90px @ 1080p */
+
+        /* Theme colors */
+        --theme-chat-box-bg: #970645dd;
+        --theme-chat-strip-bg: rgba(0, 0, 0, 0.95);
+        --theme-text-color: white;
+        --theme-border-color: black;
+
+        /* Theme layout */
+        --theme-chat-box-width: calc(100vw * 1 / 3 - var(--size-xxl));
+        --theme-chat-box-height: 80vh;
+        --theme-chat-strip-height: var(--size-xxl);
+
+        /* Theme style */
+        --theme-font-family: Futura, sans-serif;
+        --theme-border-radius: var(--size-xxl);
+        --theme-border-width: 2px;
+        --theme-username-border-width: var(--size-xxs);
+      }
+    </style>
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <div class="chat-box"></div>
+    <div class="chat-strip"></div>
+  </body>
+</html>

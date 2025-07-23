@@ -4,14 +4,11 @@ let bttvChannelLookupTable;
 let bttvChannelEmotesResponseFetched = false;
 let ffzChannelLookupTable;
 let ffzChannelEmotesResponseFetched = false;
-import config from "./config.js";
 
 async function getUserId() {
   if (userId) return userId;
 
-  const userIdResponse = await fetch(
-    `https://decapi.me/twitch/id/${config.CHANNEL_NAME}`
-  );
+  const userIdResponse = await fetch(`https://decapi.me/twitch/id/${window.CHANNEL_NAME}`);
 
   userId = await userIdResponse.text();
 
@@ -21,9 +18,7 @@ async function getUserId() {
 async function getBttvGlobalLookupTable() {
   if (bttvGlobalLookupTable) return bttvGlobalLookupTable;
 
-  const bttvGlobalEmotesResponse = await fetch(
-    "https://api.betterttv.net/3/cached/emotes/global"
-  );
+  const bttvGlobalEmotesResponse = await fetch("https://api.betterttv.net/3/cached/emotes/global");
 
   if (bttvGlobalEmotesResponse.ok) {
     const bttvGlobalEmotes = await bttvGlobalEmotesResponse.json();
@@ -52,17 +47,13 @@ async function getBttvChannelLookupTable() {
 
   const userId = await getUserId();
 
-  const bttvChannelEmotesResponse = await fetch(
-    `https://api.betterttv.net/3/cached/users/twitch/${userId}`
-  );
+  const bttvChannelEmotesResponse = await fetch(`https://api.betterttv.net/3/cached/users/twitch/${userId}`);
 
   bttvChannelEmotesResponseFetched = true;
 
   if (bttvChannelEmotesResponse.ok) {
     const bttvChannelEmotesJSON = await bttvChannelEmotesResponse.json();
-    const bttvChannelEmotes = bttvChannelEmotesJSON?.channelEmotes.concat(
-      bttvChannelEmotesJSON.sharedEmotes
-    );
+    const bttvChannelEmotes = bttvChannelEmotesJSON?.channelEmotes.concat(bttvChannelEmotesJSON.sharedEmotes);
 
     bttvChannelLookupTable = bttvChannelEmotes.reduce((result, emote) => {
       const emoteData = {
