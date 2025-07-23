@@ -9,6 +9,8 @@
 
 ## [Unreleased]
 
+## [Version 4.0.0] - 2025-07-24
+
 ### Breaking Changes 🚨
 
 - Changed to single file output build
