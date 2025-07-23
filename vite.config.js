@@ -11,6 +11,6 @@ export default {
   publicDir: false,
   root: join(projectRoot, "src"),
   build: {
-    outDir: join(projectRoot, "dist"),
+    outDir: join(projectRoot, "build"),
   },
 };
