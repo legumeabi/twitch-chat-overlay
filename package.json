@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --emptyOutDir",
     "start": "vite preview",
     "test": "mocha --require src/test/setup.js src/test/**/*.test.js"
   },
