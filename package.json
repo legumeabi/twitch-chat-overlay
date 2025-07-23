@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "vite build",
     "start": "vite preview",
-    "test": "mocha --require src/overlay/test/setup.js src/overlay/test/**/*.test.js"
+    "test": "mocha --require src/test/setup.js src/test/**/*.test.js"
   },
   "repository": {
     "type": "git",
