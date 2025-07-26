@@ -1,79 +1,51 @@
 # Twitch Chat Overlay Base
 
-A base for customizable Twitch chat overlays. The base design is (_drumroll_) very basic and consists of a dark transparent rounded box to the left of the screen. The username and pronouns (if provided) are displayed with the user's chat color as background. Standard Twitch emotes, BTTV and FFZ emotes are supported. There is also a chat strip mode where the chat is displayed on in a horizontal strip at the bottom of the screen.
-
-## Getting Started
-
-The easiest way to get started is via [Glitch](https://glitch.com).
-If you don't mind dealing with running a web server, check out the [Advanced Setups](#advanced-setups) section to learn more.
-
-### Remix on Glitch
-
-If you already have a Glitch account you can just remix the project.
-
-1. Go to [glitch.com](https://glitch.com) and log in with your account.
-2. Visit the [Twitch Chat Overlay Base project](https://glitch.com/edit/#!/twitch-chat-overlay) on Glitch.
-3. Hit the _Remix_ button to remix (=duplicate) the project for yourself.
-4. Once the project is ready, you can click the _Share_ button and copy the URL you can find under _Live site_
-5. Take this new live URL (it should have a random 3-word string in it) and use it in your streaming software (OBS etc.) as the URL for a browser source.
-6. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) below on how to use that URL.
-
-### Where do I start with changes to the code?
-
-**Be aware** that anything inside the `build` folder is automatically generated code that shouldn't be edited.
-
-- `style.css`: If you want to make some design changes the top level `style.css` file is the right place.
-- `src/main.js`: If you want to make changes, for example to the order or structure of the HTML, check out `src/main.js`, and particulary the `createMessageHTMLElement()` function.
+A base for customizable Twitch chat overlays. The base design is (_drumroll_) very basic and consists of a red-ish transparent rounded box to the left of the screen. The username and pronouns (if provided) are displayed with the user's chat color as the background. Standard Twitch emotes, BTTV, and FFZ emotes are supported. There is also a chat strip mode where the chat is displayed on a horizontal strip at the bottom of the screen.
 
 ## Integration into OBS
 
-This guide describes OBS, but it should work almost identical in other streaming software.
+This guide describes OBS, but it should work almost identically in other streaming software.
 
-Take the URL under which the overlay is running. In case you remixed on Glitch, the URL should be something similar to `https://rando-url-soup.glitch.me`. Here's how you integrate it into OBS.
+The polling tool consists of a single HTML file that contains all the code and can be integrated into OBS as a browser source.
 
-Add a browser source and as the URL you input:
+1. Download the latest version under the Release section of this GitHub repository (for example, `twitch-chat-overlay-4.0.0.html`).
+2. Open the HTML file in your editor of choice and edit at least the channel name field to be your channel of choice. For example, replace `CHANNEL_NAME = 'legumeabi'` with `CHANNEL_NAME = 'mychannelname'` if you want the chat to display everything that happens on the Twitch channel "mychannelname".
+3. Optionally edit the other options:
 
-```
-https://rando-url-soup.glitch.me?channel=XYZ
-```
+- `CHAT_STRIP_MODE = true`: to display a strip mode chat
+- `MAX_MESSAGES = 20`: to limit the maximum number of messages displayed concurrently to the provided number
+- `SHOW_BADGES = false`: to disable the display of badges next to usernames
+- `SHOW_PRONOUNS = false`: to disable the display of pronouns next to usernames
+- `REMOVE_MESSAGES_AFTER_TIMER = true`: to make messages disappear automatically after a certain time
+- `MESSAGE_REMOVAL_TIMER = 60000`: the amount of time after which the messages should disappear (only considered when `REMOVE_MESSAGES_AFTER_TIMER = true`)
 
-Substitute `XYZ` with the name of your channel.
+4. Create a new browser source in OBS.
+5. In that browser source's properties, check `Local file` and then select the just edited Twitch chat overlay HTML file.
+6. Set Width to 1920 and Height to 1080.
 
-If you want the chat strip mode.
+## Where do I start with changes to the code?
 
-```
-https://rando-url-soup.glitch.me?channel=XYZ&chatStrip
-```
+- Theming: If you want to make some theming changes (colors, font, spacing), the top-level CSS variables at the top of the HTML file are the right spot.
+- Advanced Styling: If you want to get into the weeds, you can also edit the `legumes-theme.css` file or make a copy of it and include that in the HTML instead, where you can then make the changes you want in the core CSS.
+- Advanced Code Changes: If you want to make changes, for example, to the order or structure of the HTML, check out `src/main.js`, and particularly the `createMessageHTMLElement()` function.
 
-Make sure you adjust the values for width and height to:
+## Creating a New Release
 
-```
-width: 1920
-height: 1080
-```
+This is a step-by-step guide to our own release process.
 
-## Advanced Setups
+1. Create and push a new commit with the following things:
 
-### Running Local Development Server
+- Make sure the changelog is up-to-date: Everything that was "unreleased" previously should now live under a new version header under appropriate subheaders (features, bug fixes, internal changes).
+- Make sure the same version number is updated in the package.json and also run `npm install` once so that it is reflected in the package-lock.json.
 
-1. Fetch the codebase with git.
-2. Within the codebase folder run `npm install` to install all necessary dev packages.
-3. With `npm start` you open up a dev server under `http://localhost:3000`.
-4. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to use that URL.
+2. Trigger the GitHub workflow "Release a new version":
 
-### Running On a Web Server
+- Pick the `main` branch with the latest commit
+- Enter the previously chosen version number and hit "Run workflow"
+- This creates a draft release with that version number
 
-#### Downloading Pre-built Code
+3. Edit and Publish Draft Release
 
-You can download the pre-built code from the GitHub repository directly. The `build` folder should contain all the files that need to be served from a web server.
-
-Go to _Releases_ and pick the latest version and download the source code under _Assets_. Take the source code from the `build` folder and serve it from a server.
-
-Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to use that URL.
-
-#### Building the Code Yourself
-
-1. Fetch the codebase with git.
-2. Within the codebase folder run `npm install` to install all necessary dev packages.
-3. With `npm run build` the code is built into the `build` folder, which can then be served by any web server or service that serves static files.
-4. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to use that URL.
+- Paste the changelog for the specific version into the draft release
+- Verify that the HTML file is downloadable in the assets section
+- Publish the release
